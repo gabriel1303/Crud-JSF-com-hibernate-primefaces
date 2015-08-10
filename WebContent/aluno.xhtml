@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Gerencia Aluno</title>
+	<style>
+#bordas {
+	background-color: #F8F8FC;
+}
+#rodape {
+	background-color: #167A89;
+	color: #F7FBFC;
+}
+</style>
+</h:head>
+<h:body>
+	<div id="bordas">
+		<b:navBar inverse="true" fixed="top">
+			<b:navbarLinks>
+				<b:navLink value="Lista de Alunos" href="aluno.xhtml"></b:navLink>
+				<b:navLink value="Gerenciar Aluno" href="manageAluno.xhtml"></b:navLink>
+			</b:navbarLinks>
+		</b:navBar>
+		<br /> <br /> <br /><hr/>
+		<b:container>
+			<h2>
+				<h:outputText value="Gerenciar Aluno" />
+			</h2>
+			<h:form>
+				<p:commandButton value="Novo Aluno" id="new"
+					action="#{alunoMBean.newAluno}" />
+			</h:form>
+			<br />
+			<br />
+			<h:form>
+				<p:dataTable id="tbl" var="aluno" value="#{alunoMBean.alunoList}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} 
+		 {Exporters}"
+					paginator="true" rows="5" style="margin-bottom:20px">
+					<f:facet name="{Exporters}">
+						<h:commandLink>
+							<p:graphicImage value="images/excel.png" width="24" />
+							<p:dataExporter type="xls" target="tbl" fileName="aluno" />
+						</h:commandLink>
+						<h:commandLink>
+							<p:graphicImage value="images/pdf.png" width="24" />
+							<p:dataExporter type="pdf" target="tbl" fileName="aluno" />
+						</h:commandLink>
+						<h:commandLink>
+							<p:graphicImage value="images/xml.png" width="24" />
+							<p:dataExporter type="xml" target="tbl" fileName="aluno" />
+						</h:commandLink>
+					</f:facet>
+					<p:column headerText="Codigo do aluno">
+						<h:outputText value="#{aluno.id}" />
+					</p:column>
+
+					<p:column headerText="Name Student">
+						<h:outputText value="#{aluno.name}" />
+					</p:column>
+					<p:column headerText="Curso do aluno">
+						<h:outputText value="#{aluno.curso}" />
+					</p:column>
+					<p:column headerText="Turno de estudo">
+						<h:outputText value="#{aluno.periodo}" />
+					</p:column>
+					<p:column headerText="Editar" exportable="false">
+
+						<p:commandButton action="#{alunoMBean.edit(aluno)}" value="Editar" />
+
+					</p:column>
+					<p:column headerText="Deletar" exportable="false">
+
+						<h:commandLink action="#{alunoMBean.delete(aluno)}"
+							value="Excluir" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+			<br />
+			<br />
+			<br />
+			<br />
+		</b:container>
+	</div>
+	<div id="rodape">
+		<br />
+		<br />
+		<br />
+		<br />
+		<center>
+			<h2>
+				<h:outputText value="Todos os direitos reservados" />
+			</h2>
+			<img src="images/escola.jpg" alt="Escola" width="275" />
+		</center>
+		<br />
+		<br />
+		<br />
+	</div>
+</h:body>
+</html>
